@@ -41,7 +41,7 @@
              
              validator.validateThis(password)
                       .with(new Required("CT_REQ_PASSWORD"))
-                      .with(new MinLength(6, "CT_PASS_TOO_SHORT"));
+                      .with(new MinLength(5, "CT_PASS_TOO_SHORT"));
              
              next();
          } 

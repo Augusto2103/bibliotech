@@ -9,7 +9,7 @@
 
  const bcrypt = require('bcrypt'); // Biblioteca para encriptar contraseñas
  const jwt = require('jsonwebtoken'); // Para generar tokens de sesión
- const userRepo = require('../repositories/user_repository'); // Repositorio de usuarios
+ const userRepository = require('../repositories/user_repository'); // Repositorio de usuarios
  const i18n = require('../utils/i18n/i18n'); // Inyección del gestor de idiomas
  
  /**
@@ -39,7 +39,7 @@
              const hashedPassword = await bcrypt.hash(password, 10);  
              
              // Persistencia mediante repositorio (asigna rol 'client' por defecto en el SP)
-             const userId = await userRepo.create(username, hashedPassword, 'client');
+             const userId = await userRepository.create(username, hashedPassword, 'client');
              
              const message = i18n.getMessage('CT_AUTH_REGISTER_SUCCESS');
              res.status(201).json({ message, userId });
@@ -63,7 +63,7 @@
              const { username, password } = req.body;
  
              // Buscar usuario con su rol asociado
-             const user = await userRepo.findByUsername(username);
+             const user = await userRepository.findByUsername(username);
  
              // Regla de Negocio Semántica: Verificar existencia de usuario y validación de hash bcrypt
              if (!user || !(await bcrypt.compare(password, user.password))) 

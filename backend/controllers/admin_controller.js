@@ -7,8 +7,8 @@
  * @date Octubre 2026
  */
 
- const userRepo = require('../repositories/user_repository');
- const bookRepo = require('../repositories/book_repository');
+ const userRepository = require('../repositories/user_repository');
+ const bookRepository = require('../repositories/book_repository');
  const fileHelper = require('../utils/file_helper/file_helper');
  const i18n = require('../utils/i18n/i18n'); // Inyección del gestor de idiomas
  
@@ -28,7 +28,7 @@
      {
          try 
          {
-             const users = await userRepo.findAll();
+             const users = await userRepository.findAll();
              res.json(users);
          }
          catch (error) 
@@ -59,10 +59,10 @@
              }
  
              // Obtener todos los libros cargados por el usuario objetivo antes de borrarlo
-             const userBooks = await bookRepo.findByUserId(targetUserId);
+             const userBooks = await bookRepository.findByUserId(targetUserId);
              
              // Eliminar de la base de datos (se produce cascada a nivel de tabla 'books')
-             const success = await userRepo.delete(targetUserId);
+             const success = await userRepository.delete(targetUserId);
  
              if (!success) 
              {

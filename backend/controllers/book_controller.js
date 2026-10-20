@@ -8,7 +8,7 @@
  */
 
  const fileHelper = require('../utils/file_helper/file_helper');
- const bookRepo = require('../repositories/book_repository');
+ const bookRepository = require('../repositories/book_repository');
  const i18n = require('../utils/i18n/i18n'); // Inyección del gestor de idiomas
  
  /**
@@ -33,7 +33,7 @@
              const filePath = `/uploads/${filename}`;
  
              // Persistencia de metadatos mediante Stored Procedure
-             const insertId = await bookRepo.create({
+             const insertId = await bookRepository.create({
                  user_id: userId,
                  filename,
                  title,
@@ -67,7 +67,7 @@
      {
          try 
          {
-             const books = await bookRepo.findByUserId(req.userId);
+             const books = await bookRepository.findByUserId(req.userId);
              res.json(books);
          } 
          catch (error) 
@@ -90,7 +90,7 @@
              const userId = req.userId;
  
              // Obtener información del libro para validar propiedad y conocer ruta física
-             const book = await bookRepo.findById(id, userId);
+             const book = await bookRepository.findById(id, userId);
              
              if (!book) 
              {
@@ -99,7 +99,7 @@
              }
  
              // Eliminar registro en base de datos
-             await bookRepo.delete(id, userId);
+             await bookRepository.delete(id, userId);
  
              // Eliminar archivo físico en disco de forma síncrona
              fileHelper.deleteFile(book.file_path); 
