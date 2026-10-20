@@ -8,7 +8,7 @@ Proyecto Sample Vault Original: https://github.com/gabrielinuz/sample-vault
 
 Revisión V1.0 Sergio Puchatt: https://github.com/Sdpuchatt
 
-Revisión V2.0 GNGF: https://github.com/gabrielinuz
+Revisión V2.0 GNGF: https://github.com/tecnobfi/bibliotech
 
 ---
 
