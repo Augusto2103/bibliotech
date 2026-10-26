@@ -40,6 +40,14 @@
          // Si existe sesión activa, inyectamos la credencial de autorización
          if (token) 
          {
+             /**
+              * @see https://share.google/aimode/W0GFxeVPzWMgWphxw
+              * Un Bearer Token (o "token de portador") es un tipo de credencial 
+              * de seguridad de OAuth 2.0 que otorga acceso a recursos protegidos 
+              * de una API a cualquier entidad que lo posea.
+              * Según la documentación oficial de MDN Web Docs sobre Autenticación HTTP, 
+              * el esquema Bearer está definido en el RFC 6750.
+              */
              headers['Authorization'] = `Bearer ${token}`;
          }
  

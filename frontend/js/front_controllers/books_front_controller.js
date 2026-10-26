@@ -107,32 +107,39 @@
  {
      uploadForm.addEventListener('submit', async (e) => 
      {
-         e.preventDefault();
+        /**
+         * @see Cancela el evento si este es cancelable, sin detener el 
+         * resto del funcionamiento del evento, es decir, puede ser llamado 
+         * de nuevo. En este caso evita que se envíe el formulario al presionar
+         * el botón de tipo "submit", para poder trabajar previamente con el contenido
+         * del formulario representado por el objeto de tipo FormData()
+         */ 
+        e.preventDefault();
          
-         /**
-          * @note Objeto FormData: Esencial para enviar archivos binarios al backend.
-          * Codifica automáticamente los campos en el formato 'multipart/form-data'.
-          */
-         const formData = new FormData();
-         formData.append('title', document.getElementById('title').value);
-         formData.append('author', document.getElementById('author').value);
-         formData.append('category', document.getElementById('category').value);
-         formData.append('pages', document.getElementById('pages').value);
-         
-         // files[0] accede al binario crudo del archivo seleccionado en el input de tipo file
-         formData.append('pdfFile', document.getElementById('pdfFile').files[0]);
- 
-         try 
-         {
-             // Pasamos true como cuarto parámetro para indicar que enviamos FormData
-             await apiService.request('/books/upload', 'POST', formData, true);
-             showModal('Éxito', 'Documento guardado e indexado correctamente.');
-             uploadForm.reset();
-             loadBooks();
-         } 
-         catch (error) 
-         {
-             showModal('Error al cargar', error.message);
-         }
+        /**
+         * @note Objeto FormData: Esencial para enviar archivos binarios al backend.
+         * Codifica automáticamente los campos en el formato 'multipart/form-data'.
+         */
+        const formData = new FormData();
+        formData.append('title', document.getElementById('title').value);
+        formData.append('author', document.getElementById('author').value);
+        formData.append('category', document.getElementById('category').value);
+        formData.append('pages', document.getElementById('pages').value);
+        
+        // files[0] accede al binario crudo del archivo seleccionado en el input de tipo file
+        formData.append('pdfFile', document.getElementById('pdfFile').files[0]);
+
+        try 
+        {
+            // Pasamos true como cuarto parámetro para indicar que enviamos FormData
+            await apiService.request('/books/upload', 'POST', formData, true);
+            showModal('Éxito', 'Documento guardado e indexado correctamente.');
+            uploadForm.reset();
+            loadBooks();
+        } 
+        catch (error) 
+        {
+            showModal('Error al cargar', error.message);
+        }
      });
  }
